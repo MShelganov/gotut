@@ -1,8 +1,8 @@
-package main
+package lesson2
 
 import "fmt"
 
-func main() {
+func varmain() {
 	fmt.Println("===========================================")
 	fmt.Println("Numbers Example: ")
 	numbersExample()
@@ -129,6 +129,7 @@ func arrayExample() {
  * Попробуйте изменить одну из операций среза в программе-примере, чтобы расширить ее возможности, и посмотрите, что произойдет.
  */
 func sliceExample() {
+	// Срез определяется также, как и массив, за тем исключением, что у него не указывается длина:
 	s := []int{2, 3, 5, 7, 11, 13}
 	printSlice(s)
 
@@ -143,8 +144,54 @@ func sliceExample() {
 	// Drop its first two values.
 	s = s[2:]
 	printSlice(s)
+
+	// С помощью функции make() можно создать срез из нескольких элементов,
+	// которые будут иметь значения по умолчанию:
+	var users []string = make([]string, 3)
+	users[0] = "Tom"
+	users[1] = "Alice"
+	users[2] = "Bob"
+
+	// Удаление элемента из среза
+	users1 := []string{"Bob", "Alice", "Kate", "Sam", "Tom", "Paul", "Mike", "Robert"}
+	users1 = deleteItem(users1, 3)
+	fmt.Println(users1)
 }
 
 func printSlice(s []int) {
 	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}
+
+/**
+ * Если необходимо удалить какой-то определенный элемент, в этом случае можно комбинировать
+ * функцию append и оператор среза:
+ */
+func deleteItem(s []string, i int) []string {
+	return append(s[:i], s[i+1:]...)
+}
+
+/**
+ * Отображение или map представляет ссылку на хеш-таблицу - структуру данных,
+ * где каждый элемент представляет пару "ключ-значение"
+ */
+func mapExample() {
+	// Ключи представляют тип string, значения - тип int
+	var people = map[string]int{
+		"Tom":   1,
+		"Bob":   2,
+		"Sam":   4,
+		"Alice": 8,
+	}
+	fmt.Println(people)
+	fmt.Println(people["Alice"]) // 8
+	fmt.Println(people["Bob"])   // 2
+	people["Bob"] = 32
+	fmt.Println(people["Bob"]) // 32
+
+	if val, ok := people["Tom"]; ok {
+		fmt.Println(val)
+	}
+	// Для удаления применяется встроенная функция delete(map, key)
+	delete(people, "Bob")
+	fmt.Println(people)
 }

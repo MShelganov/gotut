@@ -1,9 +1,7 @@
-package main
+package helloworld
 
 import "fmt"
 
 func main() {
 	fmt.Println("Hello World")
-	fmt.Println("New line!")
-	fmt.Println("test!")
 }
